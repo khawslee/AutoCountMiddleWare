@@ -1,7 +1,4 @@
-﻿
-using Microsoft.VisualBasic;
-
-namespace AutoCountMiddleWare
+﻿namespace AutoCountMiddleWare
 {
     public class SqlHelper
     {
@@ -19,19 +16,6 @@ namespace AutoCountMiddleWare
             {
                 Console.Write(">>>Error GetUserSession: " + ex.Message);
                 return null;
-            }
-        }
-
-        public bool TestConnectToSql(AutoCount.Data.DBSetting dbSetting)
-        {
-            try
-            {
-                object obj = dbSetting.ExecuteScalar("SELECT 1");
-                return obj == null ? false : AutoCount.Converter.ToInt32(obj) == 1;
-            }
-            catch (AutoCount.AppException)
-            {
-                return false;
             }
         }
     }

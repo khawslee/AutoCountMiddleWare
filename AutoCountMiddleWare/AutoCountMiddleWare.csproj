@@ -8,17 +8,115 @@
 
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
-    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
+    <PackageReference Include="System.CodeDom" Version="6.0.0" />
+    <PackageReference Include="System.Data.Common" Version="4.3.0" />
+    <PackageReference Include="System.Data.SqlClient" Version="4.8.3" />
   </ItemGroup>
 
   <ItemGroup>
     <Reference Include="AutoCount">
       <HintPath>..\..\..\Program Files\AutoCount\Accounting 2.0\AutoCount.dll</HintPath>
     </Reference>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Services\" />
+    <Reference Include="AutoCount.Accounting">
+      <HintPath>..\..\..\Program Files\AutoCount\Accounting 2.0\AutoCount.Accounting.dll</HintPath>
+    </Reference>
+    <Reference Include="AutoCount.Accounting.UI">
+      <HintPath>..\..\..\Program Files\AutoCount\Accounting 2.0\AutoCount.Accounting.UI.dll</HintPath>
+    </Reference>
+    <Reference Include="AutoCount.ARAP">
+      <HintPath>..\..\..\Program Files\AutoCount\Accounting 2.0\AutoCount.ARAP.dll</HintPath>
+    </Reference>
+    <Reference Include="AutoCount.BusinessFlow">
+      <HintPath>..\..\..\Program Files\AutoCount\Accounting 2.0\AutoCount.BusinessFlow.dll</HintPath>
+    </Reference>
+    <Reference Include="AutoCount.Data.Postgres">
+      <HintPath>..\..\..\Program Files\AutoCount\Accounting 2.0\AutoCount.Data.Postgres.dll</HintPath>
+    </Reference>
+    <Reference Include="AutoCount.GeneralMaint">
+      <HintPath>..\..\..\Program Files\AutoCount\Accounting 2.0\AutoCount.GeneralMaint.dll</HintPath>
+    </Reference>
+    <Reference Include="AutoCount.GL">
+      <HintPath>..\..\..\Program Files\AutoCount\Accounting 2.0\AutoCount.GL.dll</HintPath>
+    </Reference>
+    <Reference Include="AutoCount.GL.FinancialReport">
+      <HintPath>..\..\..\Program Files\AutoCount\Accounting 2.0\AutoCount.GL.FinancialReport.dll</HintPath>
+    </Reference>
+    <Reference Include="AutoCount.GST">
+      <HintPath>..\..\..\Program Files\AutoCount\Accounting 2.0\AutoCount.GST.dll</HintPath>
+    </Reference>
+    <Reference Include="AutoCount.Image100p">
+      <HintPath>..\..\..\Program Files\AutoCount\Accounting 2.0\AutoCount.Image100p.dll</HintPath>
+    </Reference>
+    <Reference Include="AutoCount.Image125p">
+      <HintPath>..\..\..\Program Files\AutoCount\Accounting 2.0\AutoCount.Image125p.dll</HintPath>
+    </Reference>
+    <Reference Include="AutoCount.Image150p">
+      <HintPath>..\..\..\Program Files\AutoCount\Accounting 2.0\AutoCount.Image150p.dll</HintPath>
+    </Reference>
+    <Reference Include="AutoCount.Image175p">
+      <HintPath>..\..\..\Program Files\AutoCount\Accounting 2.0\AutoCount.Image175p.dll</HintPath>
+    </Reference>
+    <Reference Include="AutoCount.Image200p">
+      <HintPath>..\..\..\Program Files\AutoCount\Accounting 2.0\AutoCount.Image200p.dll</HintPath>
+    </Reference>
+    <Reference Include="AutoCount.Image500p">
+      <HintPath>..\..\..\Program Files\AutoCount\Accounting 2.0\AutoCount.Image500p.dll</HintPath>
+    </Reference>
+    <Reference Include="AutoCount.Images">
+      <HintPath>..\..\..\Program Files\AutoCount\Accounting 2.0\AutoCount.Images.dll</HintPath>
+    </Reference>
+    <Reference Include="AutoCount.ImportExport">
+      <HintPath>..\..\..\Program Files\AutoCount\Accounting 2.0\AutoCount.ImportExport.dll</HintPath>
+    </Reference>
+    <Reference Include="AutoCount.Inquiry">
+      <HintPath>..\..\..\Program Files\AutoCount\Accounting 2.0\AutoCount.Inquiry.dll</HintPath>
+    </Reference>
+    <Reference Include="AutoCount.Invoicing">
+      <HintPath>..\..\..\Program Files\AutoCount\Accounting 2.0\AutoCount.Invoicing.dll</HintPath>
+    </Reference>
+    <Reference Include="AutoCount.Invoicing.Purchase">
+      <HintPath>..\..\..\Program Files\AutoCount\Accounting 2.0\AutoCount.Invoicing.Purchase.dll</HintPath>
+    </Reference>
+    <Reference Include="AutoCount.Invoicing.Sales">
+      <HintPath>..\..\..\Program Files\AutoCount\Accounting 2.0\AutoCount.Invoicing.Sales.dll</HintPath>
+    </Reference>
+    <Reference Include="AutoCount.MainEntry">
+      <HintPath>..\..\..\Program Files\AutoCount\Accounting 2.0\AutoCount.MainEntry.dll</HintPath>
+    </Reference>
+    <Reference Include="AutoCount.MainEntry.XmlSerializers">
+      <HintPath>..\..\..\Program Files\AutoCount\Accounting 2.0\AutoCount.MainEntry.XmlSerializers.dll</HintPath>
+    </Reference>
+    <Reference Include="AutoCount.ManageAccountBook">
+      <HintPath>..\..\..\Program Files\AutoCount\Accounting 2.0\AutoCount.ManageAccountBook.dll</HintPath>
+    </Reference>
+    <Reference Include="AutoCount.ManagementStudio">
+      <HintPath>..\..\..\Program Files\AutoCount\Accounting 2.0\AutoCount.ManagementStudio.dll</HintPath>
+    </Reference>
+    <Reference Include="AutoCount.Manufacturing">
+      <HintPath>..\..\..\Program Files\AutoCount\Accounting 2.0\AutoCount.Manufacturing.dll</HintPath>
+    </Reference>
+    <Reference Include="AutoCount.StartScreen">
+      <HintPath>..\..\..\Program Files\AutoCount\Accounting 2.0\AutoCount.StartScreen.dll</HintPath>
+    </Reference>
+    <Reference Include="AutoCount.Stock">
+      <HintPath>..\..\..\Program Files\AutoCount\Accounting 2.0\AutoCount.Stock.dll</HintPath>
+    </Reference>
+    <Reference Include="AutoCount.StockMaint">
+      <HintPath>..\..\..\Program Files\AutoCount\Accounting 2.0\AutoCount.StockMaint.dll</HintPath>
+    </Reference>
+    <Reference Include="AutoCount.Tools">
+      <HintPath>..\..\..\Program Files\AutoCount\Accounting 2.0\AutoCount.Tools.dll</HintPath>
+    </Reference>
+    <Reference Include="AutoCount.Tools.DataUpgrade">
+      <HintPath>..\..\..\Program Files\AutoCount\Accounting 2.0\AutoCount.Tools.DataUpgrade.dll</HintPath>
+    </Reference>
+    <Reference Include="AutoCount.UI">
+      <HintPath>..\..\..\Program Files\AutoCount\Accounting 2.0\AutoCount.UI.dll</HintPath>
+    </Reference>
+    <Reference Include="AutoCount.UI.XmlSerializers">
+      <HintPath>..\..\..\Program Files\AutoCount\Accounting 2.0\AutoCount.UI.XmlSerializers.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
 </Project>
