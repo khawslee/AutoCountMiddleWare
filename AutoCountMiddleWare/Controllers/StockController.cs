@@ -1,8 +1,7 @@
 ﻿using AutoCount.Data;
 using AutoCountMiddleWare.Model;
-using AutoCountMiddleWare.Services;
+using AutoCountMiddleWare.Services.Interface;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Options;
 
 namespace AutoCountMiddleWare.Controllers
 {
@@ -22,7 +21,7 @@ namespace AutoCountMiddleWare.Controllers
         }
 
         [HttpGet]
-        public ActionResult<ItemRecord> GetStockItem(string itemCode, string uom)
+        public ActionResult<StockItemsModel> GetStockItem(string itemCode, string uom)
         {
             try
             {

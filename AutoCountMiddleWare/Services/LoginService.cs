@@ -1,4 +1,5 @@
 ﻿using AutoCountMiddleWare.Model;
+using AutoCountMiddleWare.Services.Interface;
 using Microsoft.Extensions.Options;
 
 namespace AutoCountMiddleWare.Services

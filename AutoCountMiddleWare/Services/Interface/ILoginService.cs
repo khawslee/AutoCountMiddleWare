@@ -1,4 +1,4 @@
-﻿namespace AutoCountMiddleWare.Services
+﻿namespace AutoCountMiddleWare.Services.Interface
 {
     public interface ILoginService
     {

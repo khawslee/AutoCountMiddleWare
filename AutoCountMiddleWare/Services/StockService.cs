@@ -1,5 +1,7 @@
-﻿using AutoCount.Data;
+﻿using AutoCount.Controls.Editors;
+using AutoCount.Data;
 using AutoCountMiddleWare.Model;
+using AutoCountMiddleWare.Services.Interface;
 using Microsoft.Extensions.Options;
 using System.Data;
 
@@ -18,17 +20,26 @@ namespace AutoCountMiddleWare.Services
             _loginService = loginService;
         }
 
-        public ItemRecord GetStockItem(string itemCode, string uom)
+        public StockItemsModel GetStockItem(string itemCode, string uom)
         {
             try
             {
                 var userSession = _loginService.AutoCountLogin();
                 if (userSession != null)
                 {
-                    AutoCount.Data.ItemRecord itemRec = AutoCount.Data.RecordUtils.GetItem(userSession.DBSetting, itemCode, uom);
+                    var itemRec = RecordUtils.GetItem(userSession.DBSetting, itemCode, uom);
                     if (itemRec != null)
                     {
-                        return itemRec;
+                        var singleItemsModel = new StockItemsModel
+                        {
+                            ItemCode = itemRec.ItemCode,
+                            ItemGroup = itemRec.ItemGroup,
+                            ItemType = itemRec.ItemType,
+                            Description = itemRec.Description,
+                            UOM = itemRec.UOM,
+                            BarCode = itemRec.BarCode
+                        };
+                        return singleItemsModel;
                     }
                 }
                 return null;
@@ -93,6 +104,8 @@ namespace AutoCountMiddleWare.Services
                         var newStockItems = new StockItemsModel
                         {
                             ItemCode = itmRow["ItemCode"].ToString(),
+                            ItemGroup = itmRow["ItemGroup"].ToString(),
+                            ItemType = itmRow["ItemType"].ToString(),
                             Description = itmRow["Description"].ToString(),
                             UOM = itmRow["UOM"].ToString(),
                             BarCode = itmRow["BarCode"].ToString()
