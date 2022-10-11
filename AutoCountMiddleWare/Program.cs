@@ -1,5 +1,6 @@
 using AutoCountMiddleWare.Model;
 using AutoCountMiddleWare.Services;
+using AutoCountMiddleWare.Services.Interface;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,6 +17,8 @@ builder.Services.Configure<AutoCountSettings>(
 
 builder.Services.AddScoped<ILoginService, LoginService>();
 builder.Services.AddScoped<IStockService, StockService>();
+builder.Services.AddScoped<IPurchaseService, PurchaseService>();
+builder.Services.AddScoped<ICreditorService, CreditorService>();
 
 var app = builder.Build();
 
