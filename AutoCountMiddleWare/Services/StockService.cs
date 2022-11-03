@@ -1,5 +1,6 @@
 ﻿using AutoCount.Controls.Editors;
 using AutoCount.Data;
+using AutoCountMiddleWare.Controllers;
 using AutoCountMiddleWare.Model;
 using AutoCountMiddleWare.Services.Interface;
 using Microsoft.Extensions.Options;
@@ -11,13 +12,16 @@ namespace AutoCountMiddleWare.Services
     {
         private readonly AutoCountSettings _appSettings;
         private readonly ILoginService _loginService;
+        private readonly ILogger<StockService> _logger;
 
         public StockService(
             IOptions<AutoCountSettings> appSettings,
-            ILoginService loginService)
+            ILoginService loginService,
+            ILogger<StockService> logger)
         {
             _appSettings = appSettings.Value;
             _loginService = loginService;
+            _logger = logger;
         }
 
         public StockItemsModel GetStockItem(string itemCode, string uom)

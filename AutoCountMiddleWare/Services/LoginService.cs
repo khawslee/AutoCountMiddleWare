@@ -1,4 +1,5 @@
-﻿using AutoCountMiddleWare.Model;
+﻿using AutoCountMiddleWare.Controllers;
+using AutoCountMiddleWare.Model;
 using AutoCountMiddleWare.Services.Interface;
 using Microsoft.Extensions.Options;
 
@@ -7,11 +8,14 @@ namespace AutoCountMiddleWare.Services
     public class LoginService : ILoginService
     {
         private readonly AutoCountSettings _appSettings;
+        private readonly ILogger<StockController> _logger;
 
         public LoginService(
-            IOptions<AutoCountSettings> appSettings)
+            IOptions<AutoCountSettings> appSettings,
+            ILogger<StockController> logger)
         {
             _appSettings = appSettings.Value;
+            _logger = logger;
         }
 
         public AutoCount.Authentication.UserSession AutoCountLogin()
@@ -37,8 +41,8 @@ namespace AutoCountMiddleWare.Services
             }
             catch (AutoCount.AppException ex)
             {
-                Console.Write(">>>Error GetUserSession: " + ex.Message);
-                return null;
+                _logger.LogError(">>>Error GetUserSession: " + ex.Message);
+                throw ex;
             }
         }
 

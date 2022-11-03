@@ -38,6 +38,7 @@ namespace AutoCountMiddleWare.Controllers
         {
             try
             {
+                _logger.LogDebug(">>>GetStockItemsCount");
                 return _stockService.GetStockItemsCount();
             }
             catch (Exception ex)
