@@ -48,7 +48,7 @@ namespace AutoCountMiddleWare.Services
                 if (userSession != null)
                 {
                     //Construct Sql Select string with selection of Item Groups
-                    string sqlSelectItemInItemGroup = "SELECT Count(*) as count FROM Creditor WHERE IsActive='T'";
+                    string sqlSelectItemInItemGroup = "SELECT Count(1) as count FROM Creditor WHERE IsActive='T'";
 
                     //Get Item Code List in a table from Sql Server
                     DataRow tblItemCode = userSession.DBSetting.GetFirstDataRow(sqlSelectItemInItemGroup, false);
@@ -71,7 +71,7 @@ namespace AutoCountMiddleWare.Services
                 if (userSession != null)
                 {
                     //Construct Sql Select string with selection of Item Groups
-                    string sqlSelectCreditorInFilter = "SELECT AccNo, CompanyName FROM Creditor WHERE IsActive='T' ORDER BY AccNo OFFSET " + pageno + " ROWS FETCH NEXT " + numberOfRecordsPerPage + " ROWS ONLY";
+                    string sqlSelectCreditorInFilter = "SELECT AccNo, CompanyName FROM Creditor WHERE IsActive='T' ORDER BY AccNo OFFSET " + (pageno* numberOfRecordsPerPage) + " ROWS FETCH NEXT " + numberOfRecordsPerPage + " ROWS ONLY";
 
                     //Get AccNo List in a table from Sql Server
                     DataTable tblCreditors = userSession.DBSetting.GetDataTable(sqlSelectCreditorInFilter, false);

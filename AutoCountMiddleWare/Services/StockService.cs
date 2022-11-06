@@ -62,7 +62,7 @@ namespace AutoCountMiddleWare.Services
                 if (userSession != null)
                 {
                     //Construct Sql Select string with selection of Item Groups
-                    string sqlSelectItemInItemGroup = "SELECT Count(*) as count FROM Item WHERE IsActive='T'";
+                    string sqlSelectItemInItemGroup = "SELECT Count(1) as count FROM Item WHERE IsActive='T'";
 
                     //Get Item Code List in a table from Sql Server
                     DataRow tblItemCode = userSession.DBSetting.GetFirstDataRow(sqlSelectItemInItemGroup, false);
@@ -85,7 +85,7 @@ namespace AutoCountMiddleWare.Services
                 if (userSession != null)
                 {
                     //Construct Sql Select string with selection of Item Groups
-                    string sqlSelectItemInFilter = "SELECT ItemCode FROM Item WHERE IsActive='T' ORDER BY ItemCode OFFSET " + pageno + " ROWS FETCH NEXT " + numberOfRecordsPerPage + " ROWS ONLY";
+                    string sqlSelectItemInFilter = "SELECT ItemCode FROM Item WHERE IsActive='T' ORDER BY ItemCode OFFSET " + (pageno * numberOfRecordsPerPage) + " ROWS FETCH NEXT " + numberOfRecordsPerPage + " ROWS ONLY";
 
                     //Get Item Code List in a table from Sql Server
                     DataTable tblItemCode = userSession.DBSetting.GetDataTable(sqlSelectItemInFilter, false);
