@@ -38,6 +38,7 @@ namespace AutoCountMiddleWare.Controllers
         {
             try
             {
+                _logger.LogDebug(">>>GetCreditorsCount");
                 return _creditorService.GetCreditorsCount();
             }
             catch (Exception ex)
