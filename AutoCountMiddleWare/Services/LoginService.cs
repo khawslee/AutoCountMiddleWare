@@ -1,4 +1,5 @@
-﻿using AutoCountMiddleWare.Controllers;
+﻿using AutoCount.Authentication;
+using AutoCountMiddleWare.Controllers;
 using AutoCountMiddleWare.Model;
 using AutoCountMiddleWare.Services.Interface;
 using Microsoft.Extensions.Options;
@@ -20,13 +21,19 @@ namespace AutoCountMiddleWare.Services
 
         public AutoCount.Authentication.UserSession AutoCountLogin()
         {
-            string serverName = _appSettings.ServerName;
-            string dbName = _appSettings.DatabaseName;
-            string saPassword = _appSettings.SaPassword;
-            string userName = _appSettings.AutoCountUser;
-            string passWord = _appSettings.AutoCountPass;
+            if (Globals.userSession == null)
+            {
+                string serverName = _appSettings.ServerName;
+                string dbName = _appSettings.DatabaseName;
+                string saPassword = _appSettings.SaPassword;
+                string userName = _appSettings.AutoCountUser;
+                string passWord = _appSettings.AutoCountPass;
 
-            return GetUserSession(serverName, dbName, saPassword);
+                var newSession = GetUserSession(serverName, dbName, saPassword);
+                newSession.Login(userName, passWord);
+                Globals.userSession = newSession;
+            }
+            return Globals.userSession;
         }
 
         private AutoCount.Authentication.UserSession GetUserSession(string serverName, string dbName, string saPassword)
@@ -38,6 +45,7 @@ namespace AutoCountMiddleWare.Services
                 else
                     return new AutoCount.Authentication.UserSession(new AutoCount.Data.DBSetting(AutoCount.Data.DBServerType.SQL2000, serverName,
                         AutoCount.Const.AppConst.DefaultUserName, saPassword, dbName));
+
             }
             catch (AutoCount.AppException ex)
             {
