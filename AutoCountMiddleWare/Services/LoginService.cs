@@ -21,7 +21,7 @@ namespace AutoCountMiddleWare.Services
 
         public AutoCount.Authentication.UserSession AutoCountLogin()
         {
-            if (Globals.userSession == null)
+            if (GlobalUtils.userSession == null)
             {
                 string serverName = _appSettings.ServerName;
                 string dbName = _appSettings.DatabaseName;
@@ -31,9 +31,9 @@ namespace AutoCountMiddleWare.Services
 
                 var newSession = GetUserSession(serverName, dbName, saPassword);
                 newSession.Login(userName, passWord);
-                Globals.userSession = newSession;
+                GlobalUtils.userSession = newSession;
             }
-            return Globals.userSession;
+            return GlobalUtils.userSession;
         }
 
         private AutoCount.Authentication.UserSession GetUserSession(string serverName, string dbName, string saPassword)
