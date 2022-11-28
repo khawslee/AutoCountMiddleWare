@@ -1,8 +1,10 @@
-﻿using AutoCountMiddleWare.Constants;
+﻿using AutoCount.GL;
+using AutoCountMiddleWare.Constants;
 using AutoCountMiddleWare.Model;
 using AutoCountMiddleWare.Services.Interface;
 using Microsoft.Extensions.Options;
 using System.Data;
+using System.Reflection;
 
 namespace AutoCountMiddleWare.Services
 {
@@ -41,7 +43,7 @@ namespace AutoCountMiddleWare.Services
                     {
                         dtl = doc.AddDetail();
                         dtl.ItemCode = item.ItemCode;
-                        dtl.Qty = item.Qty;
+                        dtl.Qty = item.GoodReceiveQty;
                     }
 
                     doc.Save();
@@ -55,5 +57,56 @@ namespace AutoCountMiddleWare.Services
                 throw ex;
             }
         }
+
+        public POResponseModel? GetPurchaseOrder(string docNo)
+        {
+            try
+            {
+                var userSession = _loginService.AutoCountLogin();
+                if (userSession != null)
+                {
+                    var cmd = AutoCount.Invoicing.Purchase.PurchaseOrder.PurchaseOrderCommand.Create(userSession, userSession.DBSetting);
+                    var doc = cmd.View(docNo);
+
+                    if (doc != null)
+                    {
+                        var poResponse = new POResponseModel
+                        {                            
+                            CreditorCode = doc.CreditorCode,
+                            CreditorName = doc.CreditorName,
+                            SupplierDO = doc.DocNo,
+                            Location = doc.PurchaseLocation,
+                            Items = new List<POItemsModel>()
+                        };
+
+                        var dtlTable = doc.DataTableDetail;
+
+                        foreach (DataRow podtl in dtlTable.Rows)
+                        {
+                            string itemC = GlobalUtils.NullToStr(podtl["ItemCode"]);
+                            if (!String.IsNullOrEmpty(itemC))
+                            {
+                                var newPOItem = new POItemsModel
+                                {
+                                    ItemCode = GlobalUtils.NullToStr(podtl["ItemCode"]),
+                                    Description = GlobalUtils.NullToStr(podtl["Description"]),
+                                    UOM = GlobalUtils.NullToStr(podtl["UOM"]),
+                                    POQty = GlobalUtils.NullToDecimal(podtl["Qty"])
+                                };
+                                poResponse.Items.Add(newPOItem);
+                            }
+                        }
+
+                        return poResponse;
+                    }
+                }
+                return null;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
     }
 }

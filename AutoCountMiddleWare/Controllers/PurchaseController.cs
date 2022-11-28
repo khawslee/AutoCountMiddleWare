@@ -32,5 +32,34 @@ namespace AutoCountMiddleWare.Controllers
                 throw ex;
             }
         }
+
+        [HttpGet("GetPurchaseOrder")]
+        public ActionResult<POResponseModel> GetPurchaseOrder(string docNo)
+        {
+            try
+            {
+                _logger.LogDebug(">>>GetPurchaseOrder");
+                return _purchaseService.GetPurchaseOrder(docNo);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        [HttpGet("GetPurchaseOrderList")]
+        public ActionResult<List<string>> GetPurchaseOrderList(string docNo)
+        {
+            try
+            {
+                _logger.LogDebug(">>>GetPurchaseOrderList");
+                return _purchaseService.GetPurchaseOrderList();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
     }
 }
