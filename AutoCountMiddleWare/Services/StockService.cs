@@ -1,6 +1,4 @@
-﻿using AutoCount.Controls.Editors;
-using AutoCount.Data;
-using AutoCountMiddleWare.Controllers;
+﻿using AutoCount.Data;
 using AutoCountMiddleWare.Model;
 using AutoCountMiddleWare.Services.Interface;
 using Microsoft.Extensions.Options;
@@ -58,7 +56,7 @@ namespace AutoCountMiddleWare.Services
         {
             try
             {
-                var userSession = _loginService.AutoCountLogin();
+                var userSession = _loginService.AutoCountLogin();                
                 if (userSession != null)
                 {
                     //Construct Sql Select string with selection of Item Groups
