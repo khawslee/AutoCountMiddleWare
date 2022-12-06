@@ -46,5 +46,18 @@ namespace AutoCountMiddleWare.Controllers
             }
         }
 
+        [HttpPost("GRNFullTransferFromPO")]
+        public ActionResult<int> GRNFullTransferFromPO(POGRResponseModel grnoteRequest)
+        {
+            try
+            {
+                return _purchaseService.GRNFullTransferFromPO(grnoteRequest);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
     }
 }

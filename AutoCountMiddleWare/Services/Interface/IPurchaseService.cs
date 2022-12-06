@@ -1,4 +1,5 @@
 ﻿using AutoCountMiddleWare.Model;
+using Microsoft.AspNetCore.Mvc;
 
 namespace AutoCountMiddleWare.Services.Interface
 {
@@ -6,5 +7,6 @@ namespace AutoCountMiddleWare.Services.Interface
     {
         int CreateGRNote(POGRResponseModel grnoteRequest);
         POGRResponseModel GetPurchaseOrder(string docNo);
+        int GRNFullTransferFromPO(POGRResponseModel grnoteRequest);
     }
 }

@@ -109,5 +109,36 @@ namespace AutoCountMiddleWare.Services
             }
         }
 
+        public int GRNFullTransferFromPO(POGRResponseModel grnoteRequest)
+        {
+            try
+            {
+                var userSession = _loginService.AutoCountLogin();
+                if (userSession != null)
+                {
+                    var cmd =
+        AutoCount.Invoicing.Purchase.GoodsReceivedNote.GoodsReceivedNoteCommand.Create(userSession, userSession.DBSetting);
+                    var doc = cmd.AddNew();
+
+                    doc.CreditorCode = grnoteRequest.CreditorCode;
+                    doc.DocDate = DateTime.Today.Date;
+                    doc.SupplierDONo = grnoteRequest.SupplierDO;
+                    //Purchase Order numbers to be transferred into Goods Received Note
+                    string[] poDocNos = { grnoteRequest.PONo };
+
+                    doc.FullTransfer(poDocNos, AutoCount.Invoicing.Purchase.TransferFrom.PurchaseOrder, AutoCount.Invoicing.FullTransferOption.FullDetails);
+
+                    doc.Save();
+
+                    return 0;
+                }
+                return Error.ERR_GRNOTE_CREATE;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
     }
 }
