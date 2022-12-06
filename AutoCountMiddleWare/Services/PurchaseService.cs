@@ -21,7 +21,7 @@ namespace AutoCountMiddleWare.Services
             _loginService = loginService;
         }
 
-        public int CreateGRNote(GRNoteRequestModel grnoteRequest)
+        public int CreateGRNote(POGRResponseModel grnoteRequest)
         {
             try
             {
@@ -33,7 +33,7 @@ namespace AutoCountMiddleWare.Services
                     var doc = cmd.AddNew();
                     AutoCount.Invoicing.Purchase.GoodsReceivedNote.GoodsReceivedNoteDetail dtl;
 
-                    doc.DocDate = DateTime.Today.Date;      //get only date
+                    doc.DocDate = DateTime.Today.Date;      //get only date                    
                     doc.CreditorCode = grnoteRequest.CreditorCode;
                     doc.SupplierDONo = grnoteRequest.SupplierDO;
                     doc.PurchaseLocation = grnoteRequest.Location;
@@ -43,7 +43,7 @@ namespace AutoCountMiddleWare.Services
                     {
                         dtl = doc.AddDetail();
                         dtl.ItemCode = item.ItemCode;
-                        dtl.Qty = item.GoodReceiveQty;
+                        dtl.Qty = item.ReceiveQty;
                     }
 
                     doc.Save();
@@ -58,7 +58,7 @@ namespace AutoCountMiddleWare.Services
             }
         }
 
-        public POResponseModel? GetPurchaseOrder(string docNo)
+        public POGRResponseModel? GetPurchaseOrder(string docNo)
         {
             try
             {
@@ -70,13 +70,14 @@ namespace AutoCountMiddleWare.Services
 
                     if (doc != null)
                     {
-                        var poResponse = new POResponseModel
-                        {                            
+                        var poResponse = new POGRResponseModel
+                        {
+                            PONo = docNo,
                             CreditorCode = doc.CreditorCode,
                             CreditorName = doc.CreditorName,
-                            SupplierDO = doc.DocNo,
+                            SupplierDO = "",
                             Location = doc.PurchaseLocation,
-                            Items = new List<POItemsModel>()
+                            Items = new List<POGRItemsModel>()
                         };
 
                         var dtlTable = doc.DataTableDetail;
@@ -86,7 +87,7 @@ namespace AutoCountMiddleWare.Services
                             string itemC = GlobalUtils.NullToStr(podtl["ItemCode"]);
                             if (!String.IsNullOrEmpty(itemC))
                             {
-                                var newPOItem = new POItemsModel
+                                var newPOItem = new POGRItemsModel
                                 {
                                     ItemCode = GlobalUtils.NullToStr(podtl["ItemCode"]),
                                     Description = GlobalUtils.NullToStr(podtl["Description"]),
