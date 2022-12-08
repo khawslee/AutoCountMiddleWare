@@ -1,10 +1,8 @@
-﻿using AutoCount.GL;
-using AutoCountMiddleWare.Constants;
+﻿using AutoCountMiddleWare.Constants;
 using AutoCountMiddleWare.Model;
 using AutoCountMiddleWare.Services.Interface;
 using Microsoft.Extensions.Options;
 using System.Data;
-using System.Reflection;
 
 namespace AutoCountMiddleWare.Services
 {
@@ -127,6 +125,47 @@ namespace AutoCountMiddleWare.Services
                     string[] poDocNos = { grnoteRequest.PONo };
 
                     doc.FullTransfer(poDocNos, AutoCount.Invoicing.Purchase.TransferFrom.PurchaseOrder, AutoCount.Invoicing.FullTransferOption.FullDetails);
+
+                    doc.Save();
+
+                    return 0;
+                }
+                return Error.ERR_GRNOTE_CREATE;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public int GRNPartialTransferFromPO(POGRResponseModel grnoteRequest)
+        {
+            try
+            {
+                var userSession = _loginService.AutoCountLogin();
+                if (userSession != null)
+                {
+                    var cmd =
+        AutoCount.Invoicing.Purchase.GoodsReceivedNote.GoodsReceivedNoteCommand.Create(userSession, userSession.DBSetting);
+                    var doc = cmd.AddNew();
+
+                    doc.CreditorCode = grnoteRequest.CreditorCode;
+                    doc.SupplierDONo = grnoteRequest.SupplierDO;
+                    doc.DocDate = DateTime.Today.Date;
+
+                    //Transfer one line of item from PO, if more than one line, write a loop
+                    string poDocNo = grnoteRequest.PONo;
+
+                    foreach(var gr in grnoteRequest.Items)
+                    {                        
+                        string itemCode = gr.ItemCode;
+                        string uom = gr.UOM;
+                        decimal qtyToTransfer = gr.ReceiveQty;
+                        decimal focQtyToTrasnfer = 0;
+                        //Using Partial Transfer
+                        doc.PartialTransfer(AutoCount.Invoicing.Purchase.TransferFrom.PurchaseOrder,
+                            poDocNo, itemCode, uom, qtyToTransfer, focQtyToTrasnfer);
+                    }
 
                     doc.Save();
 

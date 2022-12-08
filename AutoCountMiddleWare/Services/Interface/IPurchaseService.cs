@@ -8,5 +8,6 @@ namespace AutoCountMiddleWare.Services.Interface
         int CreateGRNote(POGRResponseModel grnoteRequest);
         POGRResponseModel GetPurchaseOrder(string docNo);
         int GRNFullTransferFromPO(POGRResponseModel grnoteRequest);
+        int GRNPartialTransferFromPO(POGRResponseModel grnoteRequest);
     }
 }

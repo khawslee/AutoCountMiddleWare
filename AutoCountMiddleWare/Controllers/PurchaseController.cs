@@ -37,7 +37,7 @@ namespace AutoCountMiddleWare.Controllers
         {
             try
             {
-                _logger.LogDebug(">>>GetPurchaseOrder");
+                _logger.LogDebug(">>>GetPurchaseOrder: " + docNo);
                 return _purchaseService.GetPurchaseOrder(docNo);
             }
             catch (Exception ex)
@@ -51,7 +51,22 @@ namespace AutoCountMiddleWare.Controllers
         {
             try
             {
+                _logger.LogDebug(">>>GRNFullTransferFromPO: " + grnoteRequest.PONo);
                 return _purchaseService.GRNFullTransferFromPO(grnoteRequest);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        [HttpPost("GRNPartialTransferFromPO")]
+        public ActionResult<int> GRNPartialTransferFromPO(POGRResponseModel grnoteRequest)
+        {
+            try
+            {
+                _logger.LogDebug(">>>GRNPartialTransferFromPO: " + grnoteRequest.PONo);
+                return _purchaseService.GRNPartialTransferFromPO(grnoteRequest);
             }
             catch (Exception ex)
             {
