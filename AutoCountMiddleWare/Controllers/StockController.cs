@@ -1,5 +1,4 @@
-﻿using AutoCount.Data;
-using AutoCountMiddleWare.Model;
+﻿using AutoCountMiddleWare.Model;
 using AutoCountMiddleWare.Services.Interface;
 using Microsoft.AspNetCore.Mvc;
 
